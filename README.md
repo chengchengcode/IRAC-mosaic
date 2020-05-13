@@ -87,6 +87,7 @@ What happened in IDL code:
 
 ../PBCD-data/r46959104/ch1/pbcd/SPITZER_I1_46959104_0000_2_E10986504_maic.bgsub.fits
 
+
 The order of the fits name in the txt file should follow the same observation order, so we are looking at the maic, mcov for the same observation run.
 
 Sometimes IDL may give a wrong order of the files in a different list. So here should have a check and re-order them.
@@ -107,7 +108,7 @@ mcov have the coverage number for each pixel. Most of them are larger than 1. I 
            ind_cov = where(mcov lt 1.5)
            maic[ind_cov] = alog(-1)
            mcov[ind_cov] = 0     
-	   munc[ind_cov] = alog(-1)
+           munc[ind_cov] = alog(-1)
 
 the pixels with only 1 coverage have large uncertainty. The large uncertainty or hot pixels can be removed by median. I want to remove them by hand here.
 
