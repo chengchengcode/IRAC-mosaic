@@ -8,6 +8,7 @@ I start my real astronomy career from an IRAC survey named SEDS https://www.cfa.
 Motivations:
 
 1, to have a deeper IRAC image in some deep fields like XMM-LSS, ELAIS-N1, DEEP2-3, E-COSMOS, with recently released data
+
 2, to play with IRAC
 
 IRAC image can be mosaic by mopex. In my case, I cannot run mopex. No idea why.
@@ -49,23 +50,41 @@ What happened in IDL code:
 1, Prepare some file list like maiclist-ch1.txt, mcovlist-ch1.txt, munclist-ch1.txt to save the path to the maic.fits, mcov.fits, munc.fits they are mosaic, coverage, uncertainty file, file of one observation run. Context of .txt file looks like this:
 
 ../PBCD-data/r66742528/ch1/pbcd/SPITZER_I1_66742528_0000_1_E12631583_maic.bgsub.fits
+
 ../PBCD-data/r68206592/ch1/pbcd/SPITZER_I1_68206592_0000_1_E12695395_maic.bgsub.fits
+
 ../PBCD-data/r66749440/ch1/pbcd/SPITZER_I1_66749440_0000_1_E12631579_maic.bgsub.fits
+
 ../PBCD-data/r66760704/ch1/pbcd/SPITZER_I1_66760704_0000_1_E12636985_maic.bgsub.fits
+
 ../PBCD-data/r68213504/ch1/pbcd/SPITZER_I1_68213504_0000_1_E12695463_maic.bgsub.fits
+
 ../PBCD-data/r66760960/ch1/pbcd/SPITZER_I1_66760960_0000_1_E12631544_maic.bgsub.fits
+
 ../PBCD-data/r68205824/ch1/pbcd/SPITZER_I1_68205824_0000_1_E12695408_maic.bgsub.fits
+
 ../PBCD-data/r68203520/ch1/pbcd/SPITZER_I1_68203520_0000_1_E12695413_maic.bgsub.fits
+
 ../PBCD-data/r66755584/ch1/pbcd/SPITZER_I1_66755584_0000_1_E12631545_maic.bgsub.fits
+
 ../PBCD-data/r66766336/ch1/pbcd/SPITZER_I1_66766336_0000_1_E12631491_maic.bgsub.fits
+
 ../PBCD-data/r68199680/ch1/pbcd/SPITZER_I1_68199680_0000_1_E12695366_maic.bgsub.fits
+
 ../PBCD-data/r68197376/ch1/pbcd/SPITZER_I1_68197376_0000_1_E12695435_maic.bgsub.fits
+
 ../PBCD-data/r68209920/ch1/pbcd/SPITZER_I1_68209920_0000_1_E12695415_maic.bgsub.fits
+
 ../PBCD-data/r66748416/ch1/pbcd/SPITZER_I1_66748416_0000_1_E12631581_maic.bgsub.fits
+
 ../PBCD-data/r66737664/ch1/pbcd/SPITZER_I1_66737664_0000_1_E12631503_maic.bgsub.fits
+
 ../PBCD-data/r68212224/ch1/pbcd/SPITZER_I1_68212224_0000_1_E12695388_maic.bgsub.fits
+
 ../PBCD-data/r66743552/ch1/pbcd/SPITZER_I1_66743552_0000_1_E12631584_maic.bgsub.fits
+
 ../PBCD-data/r46954240/ch1/pbcd/SPITZER_I1_46954240_0000_2_E10985947_maic.bgsub.fits
+
 ../PBCD-data/r46959104/ch1/pbcd/SPITZER_I1_46959104_0000_2_E10986504_maic.bgsub.fits
 
 The order of the fits name in the txt file should follow the same observation order, so we are looking at the maic, mcov for the same observation run.
@@ -88,7 +107,7 @@ mcov have the coverage number for each pixel. Most of them are larger than 1. I 
            ind_cov = where(mcov lt 1.5)
            maic[ind_cov] = alog(-1)
            mcov[ind_cov] = 0     
-	munc[ind_cov] = alog(-1)
+	   munc[ind_cov] = alog(-1)
 
 the pixels with only 1 coverage have large uncertainty. The large uncertainty or hot pixels can be removed by median. I want to remove them by hand here.
 
