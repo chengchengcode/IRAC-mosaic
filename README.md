@@ -3,7 +3,7 @@ Stack Spitzer/IRAC image into a deeper mosaic
 
 This is a note about how to stack the IRAC image together.
 
-I start my real astronomy career from an IRAC survey named SEDS https://www.cfa.harvard.edu/SEDS/ . Jiasheng patiently helps and teach me to do crowd field photometry, collect data from each field, built the IRAC selected multi-wavelength catalogue, phot-z, absolute mag, stellar-mass etc. Most importantly, I start to understand the relation between signal and noise, model and data. Until now, Spitzer is still my favourite telescope. I feel honour when I joint one Spitzer proposal last year before it retired.
+I start my real astronomy career from an IRAC survey named SEDS https://www.cfa.harvard.edu/SEDS/ . Jiasheng patiently helps and teachs me to do crowd field photometry, collect data from each field, built the IRAC selected multi-wavelength catalogue, phot-z, absolute mag, stellar-mass etc. Most importantly, I start to understand the relation between signal and noise, model and data. Until now, Spitzer is my favourite telescope. I feel honour when I joint one Spitzer proposal last year.
 
 Motivations:
 
