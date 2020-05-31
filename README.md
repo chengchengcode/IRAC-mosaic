@@ -122,15 +122,25 @@ Finally run bcdstack-3-swarp.pro, which works on:
 
 Then median them by swarp, and name the median results by the IRAC band and exposure time, then write the name of the median results into new text files, to build the file list for the final exptime weighted mosaic.
 
-#### correct the exptime map and the median image values by the pixel_factor #### which is about 4.
+#### correct the exptime map and the median image values by the pixel_factor which is about 4.
 
 Then swarp them into one fits with the exposure time in the names. The swarp is used for median and pixel scale as 0.6.
 
 Here is one thing we need to take care about the pixel size. The BCD images have pixel size about 1.22 arcsec per pixel, which is about twice 0.6’’, and if we set pixel scale as 0.6, then swarp split the value in one 1.2 arcsec pixel into about four pixels with 0.6’’. The unit of BCD images is MJy/sr, which is surface brightness, not counts, and split one pixel into four do not change the surface brightness. Exposure time per pixel should not change by splitting the pixels. So we need to correct the pixel value by the factor of: (pixelscale_orig/0.6)^2, which is about 4.
 
-The unit of pixels is MJy/sr. 1 MJy = 10^12 uJy.1 sr = 1 rad * 1 rad = 180 deg / pi * 180 deg /pi = (180 * 60 * 60 arcsec / pi)^2 = (180 * 60 * 60 / pixel_scale_arcsec / pi)^2. Then the MJy/sr = 10^12 uJy/sr = 10^12 uJy/(180 * 60 * 60 / pixel_scale_arcsec / pi)^2 / pixel^2 = 10.^12 / (180. * 60. * 60. / pixel_scale_arcsec / pi)^2 uJy / pixel^2.
+The unit of pixels is MJy/sr, which is a unit of surface brightness.
 
-MJy/sr = unit_factor * uJy / pixel^2, where unit_factor = 10.^12 / (180. * 60. * 60. / pixel_scale_arcsec / pi)^2, and has the value of 8.46160 for pixel_scale_arcsec = 0.6 arcsec, and 34.9840 for pixel_scale_arcsrc = 1.22 arcsec.
+1 MJy = 10^12 uJy
+
+1 sr = 1 rad * 1 rad = 180 deg / pi * 180 deg /pi = (180 * 60 * 60 arcsec / pi)^2 = (180 * 60 * 60 / pixel_scale_arcsec / pi)^2
+
+Then the MJy/sr = 10^12 uJy/sr = 10^12 uJy/(180 * 60 * 60 / pixel_scale_arcsec / pi)^2 / pixel^2 = 10^12 / (180. * 60. * 60. / pixel_scale_arcsec / pi)^2 uJy / pixel^2.
+
+MJy/sr = unit_factor * uJy / pixel^2, 
+
+where the unit_factor = 10^12 / (180. * 60. * 60. / pixel_scale_arcsec / pi)^2, 
+
+and has the value of 8.46160 for pixel_scale_arcsec = 0.6 arcsec, and 34.9840 for pixel_scale_arcsrc = 1.22 arcsec.
 
 So we can change the unit of pixels into uJy (per pixel) by multiply 8.46160 to the 0.6 arcsrc pixel scale images.
 
@@ -138,7 +148,7 @@ So we can change the unit of pixels into uJy (per pixel) by multiply 8.46160 to 
 
 FLUXCONV in header can convert the unit of MJy/sr into DN/s. GAIN in header in unit of e/DN, helps to convert the DN to electrons. So 
 
-electron/s = GAIN * bcd / FLUXCONV
+electron/s = bcd [MJy/sr] * GAIN / FLUXCONV
 
 then we can define a conversion factor as conv_factor = GAIN / FLUXCONV to change the unit of MJy/sr into electron/s
 
