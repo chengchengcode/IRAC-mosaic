@@ -28,10 +28,11 @@ I use swarp to stack image in a way I can explain.
 
 Spitzer/IRAC data are released as BCD level and PBCD level. The difference between BCD and PBCD is: BCD files are pipeline reduced and calibrated file for each pointing. Image size of each BCD file is 5’ X 5’, same as FoV of IRAC. PBCD files are the stack image of several BCD file in one observation run, include e.g., 3X3 pointing pattern, some dither pattern or other configurations, or one AOR. PBCD Image size is larger than BCD file. Each PBCD folder includes maic.fits, munc.fits, mcov.fits, as the science image, coverage map, uncertainty map. Each BCD folder contains the bcd.fits, cbcd.fits, mrmsk.fits, mimsk.fits, unc.fits, and some other fits. cbcd.fits is more calibrated bcd.fits, so I start with cbcd.fits. Both BCD and PBCD images have excellent astrometry.
 
-Residual offset:
+Both PBCD and BCD files keep the background. During the observation, detector temperature is increasing, so the background changes. So we can see the [residual offset](https://irsa.ipac.caltech.edu/data/SPITZER/docs/dataanalysistools/cookbook/9/) in the PBCD images:
+![Alt text](IRAC-residual-offset.png)
+In the left case, the background can be substracted by 
 
-![Alt text](Spitzer_Data_Cookbook107.png)
-
+In the left case, the background can be subtracted by large scale smooth image, but in the right case, the background changes quick in the middle, and slow at some other place, which are not easy to subtracted well at same time. To remove this background changing, we need to go back to the BCD files, and remove the background by individually. FoV of BCD images are smaller, and background offset is easier to remove. 
 
 ## Stack methods:
 
@@ -41,7 +42,7 @@ Another stacking method is median. For each pixel position, we have observed sev
 
 So median is suitable to remove the artifacts when applied to a series of images with similar exposure time. Average more like collect the photons. To take advantage of the median and average, I median the BCD images with the same exposure time, so that the artifacts are removed effectively. Then average the median results weighted by exposure time of each exposure mode.
 
-Exposure mode of IRAC is very limited. For each AOR, IRAC will give a short exposure about shorter than 15s, to remove the residual offset in detector, which is serious for the first exposure (ref: Spitzer Data Analysis Cookbook). Then the exposure time is about 30s for wide field survey mode or about 100s for the deeper survey mode. In the beginning of the cold mission, there were long exposure mode with 200s per frame, which helps to lower the readout noise by fewer frames. In most case, there are 2 to 4 kinds of exposure time. 
+Exposure mode of IRAC is very limited. For each AOR, IRAC will give a short exposure about shorter than 15s, to remove the residual offset in detector, which is serious for the first exposure. Then the exposure time is about 30s for wide field survey mode or about 100s for the deeper survey mode. In the beginning of the cold mission, there were long exposure mode with 200s per frame, which helps to lower the readout noise by fewer frames. In most case, there are 2 to 4 kinds of exposure time. 
 
 ## stacking process:
 
