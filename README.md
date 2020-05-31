@@ -30,8 +30,6 @@ Spitzer/IRAC data are released as BCD level and PBCD level. The difference betwe
 
 Both PBCD and BCD files keep the background. During the observation, detector temperature is increasing, so the background changes. So we can see the [residual offset](https://irsa.ipac.caltech.edu/data/SPITZER/docs/dataanalysistools/cookbook/9/) in the PBCD images:
 ![Alt text](IRAC-residual-offset.png)
-In the left case, the background can be substracted by 
-
 In the left case, the background can be subtracted by large scale smooth image, but in the right case, the background changes quick in the middle, and slow at some other place, which are not easy to subtracted well at same time. To remove this background changing, we need to go back to the BCD files, and remove the background by individually. FoV of BCD images are smaller, and background offset is easier to remove. 
 
 ## Stack methods:
