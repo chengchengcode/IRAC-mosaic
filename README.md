@@ -30,6 +30,9 @@ Spitzer/IRAC data are released as BCD level and PBCD level. The difference betwe
 
 Residual offset:[residual offset](https://irsa.ipac.caltech.edu/data/SPITZER/docs/dataanalysistools/cookbook/images/Spitzer_Data_Cookbook107.png "residual offset")
 
+Inline-style: 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
 ## Stack methods:
 
 One stacking method is the average with the weight of exposure time. Image stacking is adding the photons at the same position from several fits together, then divided by the total exposure time at each position. The several fits images are the photons that drop to the detector at different time. So this stacking process is to collect the photons from different time to the detector together.
