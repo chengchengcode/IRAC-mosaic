@@ -7,9 +7,9 @@ I start my real astronomy career from an IRAC survey named [SEDS](https://www.cf
 
 ## Motivations:
 
-... to have a deeper IRAC image in some deep fields like XMM-LSS, ELAIS-N1, DEEP2-3, E-COSMOS, with recently released data
+* to have a deeper IRAC image in some deep fields like XMM-LSS, ELAIS-N1, DEEP2-3, E-COSMOS, with recently released data
 
-... to play with IRAC
+* to play with IRAC
 
 IRAC image can be mosaic by mopex. In my case, I cannot run mopex. No idea why.
 
