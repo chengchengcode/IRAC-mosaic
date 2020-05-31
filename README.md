@@ -26,9 +26,9 @@ I upload source code in case I lost it one day.
 I use IDL to feel like working with IRAC data.
 I use swarp to stack image in a way I can explain.
 
-Spitzer/IRAC data are released as BCD level and PBCD level. The difference between BCD and PBCD is: BCD files are pipeline reduced and calibrated file for each pointing. Image size of each BCD file is 5’ X 5’, same as FoV of IRAC. PBCD files are the stack image of several BCD file in one observation run, include e.g., 3X3 pointing pattern, some dither pattern or other configurations, or one AOR. PBCD Image size is larger than BCD file. Each PBCD folder includes maic.fits, munc.fits, mcov.fits, as the science image, coverage map, uncertainty map. Each BCD folder contains the bcd.fits, cbcd.fits, mrmsk.fits, mimsk.fits, unc.fits, and some other fits. cbcd.fits is the calibrated bcd.fits, so I start with cbcd.fits.
+Spitzer/IRAC data are released as BCD level and PBCD level. The difference between BCD and PBCD is: BCD files are pipeline reduced and calibrated file for each pointing. Image size of each BCD file is 5’ X 5’, same as FoV of IRAC. PBCD files are the stack image of several BCD file in one observation run, include e.g., 3X3 pointing pattern, some dither pattern or other configurations, or one AOR. PBCD Image size is larger than BCD file. Each PBCD folder includes maic.fits, munc.fits, mcov.fits, as the science image, coverage map, uncertainty map. Each BCD folder contains the bcd.fits, cbcd.fits, mrmsk.fits, mimsk.fits, unc.fits, and some other fits. cbcd.fits is more calibrated bcd.fits, so I start with cbcd.fits. Both BCD and PBCD images have excellent astrometry.
 
-BCD and PBCD images have excellent astrometry.
+Residual offset:[alt text](https://irsa.ipac.caltech.edu/data/SPITZER/docs/dataanalysistools/cookbook/images/Spitzer_Data_Cookbook107.png)
 
 ## Stack methods:
 
