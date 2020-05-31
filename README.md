@@ -40,9 +40,7 @@ Exposure mode of IRAC is very limited. For each AOR, IRAC will give a short expo
 
 ## stacking process:
 
-Spitzer data can be downloaded from: https://sha.ipac.caltech.edu/applications/Spitzer/SHA/
-
-input the ra, dec, Equ 2000, set the radius, 1.5deg at most, select IRAC data bands maybe only BCD data, click Search.  Then you see a page with many data, select all, click Prepare Download, then wait a moment
+Spitzer data can be downloaded from [Spitzer Heritage Archive](https://sha.ipac.caltech.edu/applications/Spitzer/SHA/). You can input the ra, dec, Equ 2000, set the radius, 1.5deg at most, select IRAC data bands maybe only BCD data, click Search.  Then you see a page with many data, select all, click Prepare Download, then wait a moment
 
 then download script, download data, unzip the files in a folder, then you can see some folders with the name like r46954240, r46954241, r46954242…
 
@@ -55,7 +53,9 @@ Most of the time, you will get the mosaic images include the science image with 
 
 What happened in IDL code:
 
-### bcdstack-1-buildlist.pro works on build file lists:
+### bcdstack-1-buildlist.pro 
+
+build file lists:
 
 It starts from du -a ../XMMLSS > listfiles/listall.txt, then listall.txt would looks like:
 
@@ -102,7 +102,7 @@ After this preparation, we move to bcdstack-2-bgsub.pro, which remove the backgr
 
 For one pixel that received some electrons, sometimes it is not easy to tell how many electrons belong to the background.
 
-Spitzer have some idea about the background properties, For IRAC ch1, it is about 0.1 – 0.5 MJy/sr: https://irsa.ipac.caltech.edu/data/SPITZER/docs/irac/iracinstrumenthandbook/10/
+Spitzer have some idea about the background properties, For IRAC ch1, it is about [0.1 – 0.5 MJy/sr](https://irsa.ipac.caltech.edu/data/SPITZER/docs/irac/iracinstrumenthandbook/10/)
 
 I will use the peak position of the pixel value histogram in each image, or the mod value of the histogram, which should be similar or better than the median pixel value, and the SExtractor estimation is good in the view of non-constant background.
 
