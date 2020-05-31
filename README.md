@@ -5,11 +5,11 @@ This is a note about how to stack the IRAC image together.
 
 I start my real astronomy career from an IRAC survey named [SEDS](https://www.cfa.harvard.edu/SEDS/). Jiasheng patiently helps and teachs me to do crowd field photometry, collect data from each field, built the IRAC selected multi-wavelength catalogue, phot-z, absolute mag, stellar-mass etc. Most importantly, I start to understand the relation between signal and noise, model and data. Until now, Spitzer is my favourite telescope. I feel honour when I joint one Spitzer proposal last year.
 
-Motivations:
+## Motivations:
 
-1, to have a deeper IRAC image in some deep fields like XMM-LSS, ELAIS-N1, DEEP2-3, E-COSMOS, with recently released data
+... to have a deeper IRAC image in some deep fields like XMM-LSS, ELAIS-N1, DEEP2-3, E-COSMOS, with recently released data
 
-2, to play with IRAC
+... to play with IRAC
 
 IRAC image can be mosaic by mopex. In my case, I cannot run mopex. No idea why.
 
@@ -38,8 +38,6 @@ So median is suitable to remove the artifacts when applied to a series of images
 
 Exposure mode of IRAC is very limited. For each AOR, IRAC will give a short exposure about shorter than 15s, to remove the residual offset in detector, which is serious for the first exposure (ref: Spitzer Data Analysis Cookbook). Then the exposure time is about 30s for wide field survey mode or about 100s for the deeper survey mode. In the beginning of the cold mission, there were long exposure mode with 200s per frame, which helps to lower the readout noise by fewer frames. In most case, there are 2 to 4 kinds of exposure time. 
 
-======================================
-
 ## stacking process:
 
 Spitzer data can be downloaded from: https://sha.ipac.caltech.edu/applications/Spitzer/SHA/
@@ -62,19 +60,33 @@ What happened in IDL code:
 It starts from du -a ../XMMLSS > listfiles/listall.txt, then listall.txt would looks like:
 
 280	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0112_0000_2_bimsk.fits
+
 280	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0140_0000_2_bimsk.fits
+
 584	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0143_0000_2_bcd.fits
+
 80	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0141_0000_2_ptn.log
+
 88	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0113_0000_2_bcd.log
+
 584	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0112_0000_2_bcd.fits
+
 280	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0113_0000_2_bimsk.fits
+
 280	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0141_0000_2_bimsk.fits
+
 584	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0140_0000_2_cbcd.fits
+
 50	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0140_0000_2_ptn.log
+
 88	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0112_0000_2_bcd.log
+
 576	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0141_0000_2_bunc.fits
+
 50	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0142_0000_2_ptn.log
+
 580	../XMMLSS/r37892864/ch1/bcd/SPITZER_I1_37892864_0142_0000_2_bimsk.fits
+
 …
 
 Here you can see the files in bcd folder are fits and log, and named by the band ID, AOR, EXPOSURE ID, DECNUM, pipeline version, type. What we need is 
