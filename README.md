@@ -30,7 +30,7 @@ Spitzer/IRAC data are released as BCD level and PBCD level. The difference betwe
 
 Residual offset:
 
-![Alt text](IRAC-mosaic/Spitzer_Data_Cookbook107.png)
+![Alt text](Spitzer_Data_Cookbook107.png)
 
 
 ## Stack methods:
