@@ -5,6 +5,7 @@ spawn, 'ls blank > listfiles/default.param'
 spawn, 'rm -rf blank'
 
 channel = ['I1', 'I2']
+channel = ['I1']
 
 for i_ch = 0, n_elements(channel) - 1 do begin
 	readcol, 'listfiles/cbcdlist_'+channel[i_ch]+'.txt', cbcdlist, format = 'a'

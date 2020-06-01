@@ -3,7 +3,7 @@ spawn, 'mkdir mosaic'
 spawn, 'swarp -d > listfiles/stack.swarp'
 
 channel = ['I1', 'I2']
-;channel = ['I1']
+channel = ['I1']
 
 openw, lun_swarp_note, 'swarp-note.txt', /get_lun
 
@@ -25,10 +25,10 @@ pixelscale_orig[0] = sxpar(headfits(unclist[0]), 'PXSCAL2')
 openw, lun, 'pixel-scale-check.txt', /get_lun
 for i = 0LL, n_elements(exptime) - 1 do begin	
 	unc = mrdfits(unclist[i],0,h, /sil)
-	writefits, repstr(unclist[i],'.fits','.2.fits'), unc^2., h
+	writefits, repstr(unclist[i],'.fits','.2.fits'), unc^2. * sxpar(h, 'PXSCAL2')^4 / 0.6^4. , h
 	
-	printf, lun, sxpar(h, 'PXSCAL2'), exptime[i]
-	
+	printf, lun, sxpar(h, 'PXSCAL2'), exptime[i], sqrt(sxpar(h, 'CD1_1')^2 + sxpar(h, 'CD2_1')^2) * 3600.d, format='(f,f,f)'	
+
 	ind_exp = where(exptime[i] eq expclass)
 	if ind_exp[0] eq -1 then begin
 		print, exptime[i], sxpar(headfits(cbcdlist[i]), 'EXPTIME'), sxpar(headfits(cbcdlist[i]), 'HDRFRAME')
@@ -38,7 +38,7 @@ for i = 0LL, n_elements(exptime) - 1 do begin
 	endif
 endfor
 free_lun, lun
-
+;stop
 
 print, '---------------------------------'
 print, 'exptime list:	', expclass
@@ -121,6 +121,7 @@ openw, lun_channel_bg_weight,'listfiles/'+channel[i_ch]+'-bg-final-stack-weight.
 for i = 0LL, n_elements(expclass) - 1 do begin
 
 	printf, lun_channel_unc, 'mosaic/rough-unc2-'+channel[i_ch]+'-'+strtrim(expclass[i], 2)+'s.fits'	
+
 	printf, lun_channel_sexbg, 'mosaic/rough-'+channel[i_ch]+'-'+strtrim(expclass[i], 2)+'-median-bgsexsub-MJysr.fits'
 	printf, lun_channel_bg, 'mosaic/rough-'+channel[i_ch]+'-'+strtrim(expclass[i], 2)+'-median-bgsub-MJysr.fits'
 	

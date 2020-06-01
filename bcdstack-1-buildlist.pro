@@ -1,13 +1,14 @@
 
 spawn, 'mkdir listfiles'
 
-spawn, 'du -a ../ELAISN1 > listfiles/listall.txt'
+spawn, 'du -a ../XMMLSS > listfiles/listall.txt'
 
 ;
 ;readcol, 'listall.txt', size, fitsname, format = 'i,a'
 readcol, 'listfiles/listall.txt', size, namepath, bandid, aor, expid, decnum, pipeline, type, fits, format = 'i,a,a,a,a,a,a,a,a,a', delimiter='_.', /sil
 
 channel = ['I1', 'I2']
+channel = ['I1']
 
 for i_ch = 0, n_elements(channel) - 1 do begin
 
@@ -31,23 +32,24 @@ for i = 0LL, n_elements(ind_cbcd) - 1 do begin
 	if i mod 500 eq 1 then print, n_elements(ind_cbcd) - 1 - i, '  <--- ', channel[i_ch], '	', systime()
 
 	name_cbcd_i = '..'+namepath[ind_cbcd[i]]+'_'+bandid[ind_cbcd[i]]+'_'+aor[ind_cbcd[i]]+'_'+expid[ind_cbcd[i]]+'_'+decnum[ind_cbcd[i]]+'_'+pipeline[ind_cbcd[i]]+'_'+type[ind_cbcd[i]]+'.'+fits[ind_cbcd[i]]
-	img = mrdfits(name_cbcd_i,0,h,/sil)
 
-	if sxpar(h, 'EXPTIME') lt 15 then continue
+	img = mrdfits(name_cbcd_i,0,h_bcd,/sil)
 
-	printf, lun_exptime, sxpar(h, 'EXPTIME')
-	expmap = img-img+sxpar(h, 'EXPTIME')
+	if sxpar(h_bcd, 'EXPTIME') lt 15 then continue
+
+	printf, lun_exptime, sxpar(h_bcd, 'EXPTIME')
+	expmap = img-img+sxpar(h_bcd, 'EXPTIME')
 		
-;	if sxpar(h, 'EXPTIME') lt 2 then continue
+;	if sxpar(h_bcd, 'EXPTIME') lt 2 then continue
 	
 	ind_find_cbunc = where(namepath[ind_cbcd[i]] eq namepath[ind_cbunc] and bandid[ind_cbcd[i]] eq bandid[ind_cbunc] and aor[ind_cbcd[i]] eq  aor[ind_cbunc] and expid[ind_cbcd[i]] eq expid[ind_cbunc])
 	if ind_find_cbunc[0] eq -1 then	ind_find_cbunc = where(namepath[ind_cbcd[i]] eq namepath[ind_bunc] and bandid[ind_cbcd[i]] eq bandid[ind_bunc] and aor[ind_cbcd[i]] eq  aor[ind_bunc] and expid[ind_cbcd[i]] eq expid[ind_bunc])	
 	if ind_find_cbunc[0] eq -1 then	begin
-		printf, lun_expcheck, sxpar(h, 'EXPTIME'), i, '	unc', format = '(f,i)'		
+		printf, lun_expcheck, sxpar(h_bcd, 'EXPTIME'), i, '	unc', format = '(f,i)'		
 		continue
 	endif
 	name_unc_i = '..'+namepath[ind_cbunc[ind_find_cbunc]] +'_'+ bandid[ind_cbunc[ind_find_cbunc]] +'_'+ aor[ind_cbunc[ind_find_cbunc]] +'_'+ expid[ind_cbunc[ind_find_cbunc]] +'_'+ decnum[ind_cbunc[ind_find_cbunc]] +'_'+ pipeline[ind_cbunc[ind_find_cbunc]] +'_'+ type[ind_cbunc[ind_find_cbunc]] +'.'+ fits[ind_cbunc[ind_find_cbunc]]
-	unc = mrdfits(name_unc_i,0,h,/sil)
+	unc = mrdfits(name_unc_i,0,h_unc,/sil)
 
 	ind_find_mrmsk = where(namepath[ind_cbcd[i]] eq namepath[ind_mrmsk] and bandid[ind_cbcd[i]] eq bandid[ind_mrmsk] and aor[ind_cbcd[i]] eq  aor[ind_mrmsk] and expid[ind_cbcd[i]] eq expid[ind_mrmsk])
 	if ind_find_mrmsk[0] ne -1 then begin
@@ -61,7 +63,7 @@ for i = 0LL, n_elements(ind_cbcd) - 1 do begin
 			expmap[ind_cosmicray] = 0.
 		endif
 	endif
-
+	
 	ind_find_mimsk = where(namepath[ind_cbcd[i]] eq namepath[ind_mimsk] and bandid[ind_cbcd[i]] eq bandid[ind_mimsk] and aor[ind_cbcd[i]] eq  aor[ind_mimsk] and expid[ind_cbcd[i]] eq expid[ind_mimsk])
 	if ind_find_mimsk[0] ne -1 then begin
 		name_mimsk_i = '..'+namepath[ind_mimsk[ind_find_mimsk]] +'_'+ bandid[ind_mimsk[ind_find_mimsk]] +'_'+ aor[ind_mimsk[ind_find_mimsk]] +'_'+ expid[ind_mimsk[ind_find_mimsk]] +'_'+ decnum[ind_mimsk[ind_find_mimsk]] +'_'+ pipeline[ind_mimsk[ind_find_mimsk]] +'_'+ type[ind_mimsk[ind_find_mimsk]] +'.'+ fits[ind_mimsk[ind_find_mimsk]]
@@ -84,16 +86,16 @@ for i = 0LL, n_elements(ind_cbcd) - 1 do begin
 ;	print, name_mrmsk_i
 ;	print, name_mimsk_i
 
-;	ra_cbcd = sxpar(h, 'CRVAL1')
+;	ra_cbcd = sxpar(h_bcd, 'CRVAL1')
 ;	ra_unc = sxpar(headfits(name_unc_i), 'CRVAL1')
 ;	ra_mrmsk = sxpar(headfits(name_mrmsk_i), 'CRVAL1')
 
 ;	cgoplot, ra_cbcd-ra_unc, ra_cbcd - ra_mrmsk, ps = 15
 
 
-	writefits, repstr(name_cbcd_i,'cbcd.fits','cbcd.masked.fits'), img, h
-	writefits, repstr(name_unc_i,'unc.fits','unc.masked.fits'), unc, h
-	writefits, repstr(name_cbcd_i,'cbcd.fits','exptime.fits'), expmap, h
+	writefits, repstr(name_cbcd_i,'cbcd.fits','cbcd.masked.fits'), img, h_bcd
+	writefits, repstr(name_unc_i,'unc.fits','unc.masked.fits'), unc, h_bcd
+	writefits, repstr(name_cbcd_i,'cbcd.fits','exptime.fits'), expmap, h_bcd
 
 	printf, lun_cbcd, repstr(name_cbcd_i,'cbcd.fits','cbcd.masked.fits'), format = '(a)'
 	printf, lun_unc, repstr(name_unc_i,'unc.fits','unc.masked.fits'), format = '(a)'
